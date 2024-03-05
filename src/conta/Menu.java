@@ -2,16 +2,31 @@ package conta;
 
 import java.util.Scanner;
 import conta.util.Cores;
+import conta.model.Conta;
 
 public class Menu {
 
 	public static void main(String[] args) {
+		
+		
+		Conta c1 = new Conta(123456, 123, 1, "Maria dos Santos", 2500.0f);
+		
+		System.out.println("Nome do Titular: " + c1.getTitular());
+		System.out.println("Saldo da Conta: " + c1.getSaldo());
+		System.out.println("");
+		
+		c1.setSaldo(10000.0f);
+		System.out.println("Saldo da Conta: " + c1.getSaldo());
+		
+		
 		
 		Scanner leia = new Scanner(System.in);
 		
 		int opcao;
 		
 		while (true) {
+			
+			System.out.println(Cores.TEXT_YELLOW + Cores.ANSI_BLACK_BACKGROUND + "*****************************************************");
 			
 			System.out.println("*****************************************************");
 			System.out.println("                                                     ");
@@ -31,7 +46,7 @@ public class Menu {
 			System.out.println("                                                     ");
 			System.out.println("*****************************************************");
 			System.out.println("Entre com a opção desejada:                          ");
-			System.out.println("                                                     ");
+			System.out.println("                                                     " + Cores.ANSI_RED_BACKGROUND);
 
 			opcao = leia.nextInt();
 			
@@ -82,16 +97,13 @@ public class Menu {
 			
 		}
 	}
-		
-		public static void sobre() {
-			System.out.println("\n*********************************************************");
-			System.out.println("Projeto Desenvolvido por: ");
-			System.out.println("Generation Brasil - generation@generation.org");
-			System.out.println("github.com/conteudoGeneration");
-			System.out.println("*********************************************************");
-		}
 
+	public static void sobre() {
+		System.out.println("\n*********************************************************");
+		System.out.println("Projeto Desenvolvido por: ");
+		System.out.println("Generation Brasil - generation@generation.org");
+		System.out.println("github.com/conteudoGeneration");
+		System.out.println("*********************************************************");
+	}
 
 }
-
-

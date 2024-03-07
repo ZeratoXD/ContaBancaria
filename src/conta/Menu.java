@@ -10,14 +10,7 @@ import conta.model.ContaPoupanca;
 public class Menu {
 
 	public static void main(String[] args) {
-
-		// Teste da Classe Conta
-		Conta c1 = new Conta(123456, 123, 1, "Ivan Cassio Dias", 2500.0f);
-		c1.visualizar();
-		c1.sacar(12000.0f);
-		c1.visualizar();
-		c1.depositar(5000.0f);
-		c1.visualizar();
+		
 
 		// Teste da Classe Conta Corrente
 		ContaCorrente cc1 = new ContaCorrente(123457, 123, 2, "João dos Santos", 2500.0f, 1000f);
@@ -38,12 +31,12 @@ public class Menu {
 
 		cc1.visualizar();
 
-		System.out.println("Nome do Titular: " + c1.getTitular());
-		System.out.println("Saldo da Conta: " + c1.getSaldo());
+		System.out.println("Nome do Titular: " + cc1.getTitular());
+		System.out.println("Saldo da Conta: " + cc1.getSaldo());
 		System.out.println("");
 
-		c1.setSaldo(10000.0f);
-		System.out.println("Saldo da Conta: " + c1.getSaldo());
+		cc1.setSaldo(10000.0f);
+		System.out.println("Saldo da Conta: " + cc1.getSaldo());
 
 		Scanner leia = new Scanner(System.in);
 

@@ -1,33 +1,59 @@
 package conta;
 
 import java.util.Scanner;
+
 import conta.util.Cores;
 import conta.model.Conta;
+import conta.model.ContaCorrente;
+import conta.model.ContaPoupanca;
 
 public class Menu {
 
 	public static void main(String[] args) {
-		
-		
-		Conta c1 = new Conta(123456, 123, 1, "Maria dos Santos", 2500.0f);
-		
+
+		// Teste da Classe Conta
+		Conta c1 = new Conta(123456, 123, 1, "Ivan Cassio Dias", 2500.0f);
+		c1.visualizar();
+		c1.sacar(12000.0f);
+		c1.visualizar();
+		c1.depositar(5000.0f);
+		c1.visualizar();
+
+		// Teste da Classe Conta Corrente
+		ContaCorrente cc1 = new ContaCorrente(123457, 123, 2, "João dos Santos", 2500.0f, 1000f);
+		cc1.visualizar();
+		cc1.visualizar();
+		cc1.sacar(12000.0f);
+		cc1.visualizar();
+		cc1.depositar(5000.0f);
+		cc1.visualizar();
+
+		// Teste da Classe Conta poupança
+		ContaPoupanca cp1 = new ContaPoupanca(2, 123, 2, "Maria dos Santos", 100000.0f, 15);
+		cp1.visualizar();
+		cp1.sacar(1000.0f);
+		cp1.visualizar();
+		cp1.depositar(5000.0f);
+		cp1.visualizar();
+
+		cc1.visualizar();
+
 		System.out.println("Nome do Titular: " + c1.getTitular());
 		System.out.println("Saldo da Conta: " + c1.getSaldo());
 		System.out.println("");
-		
+
 		c1.setSaldo(10000.0f);
 		System.out.println("Saldo da Conta: " + c1.getSaldo());
-		
-		
-		
+
 		Scanner leia = new Scanner(System.in);
-		
+
 		int opcao;
-		
+
 		while (true) {
-			
-			System.out.println(Cores.TEXT_YELLOW + Cores.ANSI_BLACK_BACKGROUND + "*****************************************************");
-			
+
+			System.out.println(Cores.TEXT_YELLOW + Cores.ANSI_BLACK_BACKGROUND
+					+ "*****************************************************");
+
 			System.out.println("*****************************************************");
 			System.out.println("                                                     ");
 			System.out.println("                BANCO DO BRAZIL COM Z                ");
@@ -49,14 +75,14 @@ public class Menu {
 			System.out.println("                                                     " + Cores.ANSI_RED_BACKGROUND);
 
 			opcao = leia.nextInt();
-			
+
 			if (opcao == 9) {
 				System.out.println("\nBanco do Brazil com Z - O seu Futuro começa aqui!");
 				sobre();
-                 leia.close();
+				leia.close();
 				System.exit(0);
 			}
-			
+
 			switch (opcao) {
 			case 1:
 				System.out.println("Criar Conta\n\n");
@@ -94,7 +120,7 @@ public class Menu {
 				System.out.println("\nOpção Inválida!\n");
 				break;
 			}
-			
+
 		}
 	}
 

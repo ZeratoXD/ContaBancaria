@@ -17,34 +17,25 @@ public class Menu {
 
 		Scanner leia = new Scanner(System.in);
 
-		int opcao, numero, agencia, tipo, aniversario;
+		int opcao, numero, agencia, tipo, aniversario, numeroDestino;
 		String titular;
-		float saldo, limite;
+		float saldo, limite, valor = 0;
 
-		// Teste da Classe Conta Corrente
-		ContaCorrente cc1 = new ContaCorrente(123457, 123, 2, "João dos Santos", 2500.0f, 1000f);
-		cc1.visualizar();
-		cc1.visualizar();
-		cc1.depositar(5000.0f);
-		cc1.visualizar();
+		ContaCorrente cc1 = new ContaCorrente(contas.gerarNumero(), 123, 1, "João da Silva", 1000.0f, 100.0f);
+        contas.cadastrar(cc1);
 
-		// Teste da Classe Conta poupança
-		ContaPoupanca cp1 = new ContaPoupanca(2, 123, 2, "Maria dos Santos", 100000.0f, 15);
-		cp1.visualizar();
-		cp1.visualizar();
-		cp1.depositar(5000.0f);
-		cp1.visualizar();
+        ContaCorrente cc2 = new ContaCorrente(contas.gerarNumero(), 124, 1, "Maria da Silva", 2000.0f, 100.0f);
+        contas.cadastrar(cc2);
 
-		cc1.visualizar();
+        ContaPoupanca cp1 = new ContaPoupanca(contas.gerarNumero(), 125, 2, "Mariana dos Santos", 4000.0f, 12);
+        contas.cadastrar(cp1);
 
-		System.out.println("Nome do Titular: " + cc1.getTitular());
-		System.out.println("Saldo da Conta: " + cc1.getSaldo());
-		System.out.println("");
+        ContaPoupanca cp2 = new ContaPoupanca(contas.gerarNumero(), 126, 2, "Juliana Ramos", 8000.0f, 15);
+        contas.cadastrar(cp2);
 
-		cc1.setSaldo(10000.0f);
-		System.out.println("Saldo da Conta: " + cc1.getSaldo());
+        contas.listarTodas();
 
-		int opcao1;
+		
 
 		while (true) {
 
@@ -71,16 +62,16 @@ public class Menu {
 			System.out.println("Entre com a opção desejada:                          ");
 			System.out.println("                                                     " + Cores.ANSI_RED_BACKGROUND);
 
-			opcao1 = leia.nextInt();
+			opcao = leia.nextInt();
 
-			if (opcao1 == 9) {
+			if (opcao == 9) {
 				System.out.println("\nBanco do Brazil com Z - O seu Futuro começa aqui!");
 				sobre();
 				leia.close();
 				System.exit(0);
 			}
 
-			switch (opcao1) {
+			switch (opcao) {
 			case 1:
 				System.out.println("Criar Conta\n\n");
 
@@ -184,12 +175,32 @@ public class Menu {
 				keyPress();
 				break;
 			case 6:
-				System.out.println("Saque\n\n");
+				System.out.println(Cores.TEXT_WHITE + "Saque\n\n");
+				
+				System.out.println("Digite o numero da conta: ");
+				numero = leia.nextInt();
+				
+				do {
+					System.out.println("Digite o valor do saque (R$) : ");
+					numero = leia.nextInt();
+				}while(valor <= 0);
+				
+				contas.sacar(numero, valor);
 
 				keyPress();
 				break;
 			case 7:
-				System.out.println("Depósito\n\n");
+				System.out.println(Cores.TEXT_WHITE + "Depósito\n\n");
+				
+				System.out.println("Digite o numero da conta: ");
+				numero = leia.nextInt();
+				
+				do {
+					System.out.println("Digite o valor do depósito (R$) : ");
+					valor = leia.nextInt();
+				}while(valor <= 0);
+				
+				contas.depositar(numero, valor);
 
 				keyPress();
 				break;

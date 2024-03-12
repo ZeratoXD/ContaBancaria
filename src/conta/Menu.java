@@ -13,15 +13,14 @@ public class Menu {
 
 	public static void main(String[] args) {
 
-		ContaController contas = new ContaController ();
-		
+		ContaController contas = new ContaController();
+
 		Scanner leia = new Scanner(System.in);
-		
+
 		int opcao, numero, agencia, tipo, aniversario;
 		String titular;
 		float saldo, limite;
-		
-		
+
 		// Teste da Classe Conta Corrente
 		ContaCorrente cc1 = new ContaCorrente(123457, 123, 2, "João dos Santos", 2500.0f, 1000f);
 		cc1.visualizar();
@@ -90,47 +89,97 @@ public class Menu {
 				System.out.println("Digite o nome do Titular: ");
 				leia.skip("\\R?");
 				titular = leia.nextLine();
-				
+
 				do {
 					System.out.println("Digite o tipo da Conta (1-CC ou 2-CP):  ");
 					tipo = leia.nextInt();
-				}while(tipo < 1 && tipo >2);
-				
+				} while (tipo < 1 && tipo > 2);
+
 				System.out.println("Digite o saldo da Conta (R$) :  ");
 				saldo = leia.nextFloat();
-				
-				switch(tipo) {
-					case 1 -> {
-						System.out.println("Digite o limite de Crédito (R$) :  ");
-						limite = leia.nextFloat();
-						contas.cadastrar(new ContaCorrente(contas.gerarNumero(), agencia, tipo, titular, saldo, limite));
-					}case 2 -> {
-						System.out.println("Digite o limite de Crédito (R$) :  ");
-						aniversario = leia.nextInt();
-						contas.cadastrar(new ContaPoupanca(contas.gerarNumero(), agencia, tipo, titular, saldo, aniversario));
+
+				switch (tipo) {
+				case 1 -> {
+					System.out.println("Digite o limite de Crédito (R$) :  ");
+					limite = leia.nextFloat();
+					contas.cadastrar(new ContaCorrente(contas.gerarNumero(), agencia, tipo, titular, saldo, limite));
 				}
-		
-			}
-				
+				case 2 -> {
+					System.out.println("Digite o limite de Crédito (R$) :  ");
+					aniversario = leia.nextInt();
+					contas.cadastrar(
+							new ContaPoupanca(contas.gerarNumero(), agencia, tipo, titular, saldo, aniversario));
+				}
+
+				}
+
 				keyPress();
 				break;
 			case 2:
 				System.out.println("Listar todas as Contas\n\n");
-                contas.listarTodas(); 
-                keyPress();
-                break;
+				contas.listarTodas();
+				keyPress();
+				break;
 			case 3:
-				System.out.println("Consultar dados da Conta - por número\n\n");
+				System.out.println(Cores.TEXT_WHITE + "Consultar dados da Conta - por número\n\n");
+
+				System.out.println("Digite o número da conta: ");
+				numero = leia.nextInt();
+
+				contas.procurarPorNumero(numero);
 
 				keyPress();
 				break;
 			case 4:
 				System.out.println("Atualizar dados da Conta\n\n");
 
+				System.out.println("Digite o número da conta: ");
+				numero = leia.nextInt();
+
+				var buscaConta = contas.buscarNaCollection(numero);
+
+				if (buscaConta != null) {
+
+					tipo = buscaConta.getTipo();
+					System.out.println("Digite o número da Agência: ");
+					agencia = leia.nextInt();
+					System.out.println("Digite o nome do Titular: ");
+					leia.skip("\\R?");
+					titular = leia.nextLine();
+
+					System.out.println("Digite o saldo da Conta (R$): ");
+					saldo = leia.nextFloat();
+
+					switch (tipo) {
+					case 1 -> {
+						System.out.println("Digite o limite de Crédito (R$) :  ");
+						limite = leia.nextFloat();
+						contas.atualizar(new ContaCorrente(numero, agencia, tipo, titular, saldo, limite));
+					}
+					case 2 -> {
+						System.out.println("Digite o dia do Aniversário da Conta: ");
+						aniversario = leia.nextInt();
+
+						contas.atualizar(new ContaPoupanca(numero, agencia, tipo, titular, saldo, aniversario));
+					}
+					default -> {
+						System.out.println("Tipo de conta inválido!");
+					}
+				
+					}
+				} else {
+					System.out.println("A conta não foi encontrada!");
+				}
+
 				keyPress();
 				break;
 			case 5:
-				System.out.println("Apagar a Conta\n\n");
+				System.out.println(Cores.TEXT_WHITE + "Apagar a Conta\n\n");
+				
+				System.out.println("Digite o número da conta: ");
+				numero = leia.nextInt();
+				
+				contas.deletar(numero);
 
 				keyPress();
 				break;
@@ -154,9 +203,10 @@ public class Menu {
 
 				keyPress();
 				break;
-			}
 
+			}
 		}
+
 	}
 
 	public static void sobre() {
